@@ -2,14 +2,14 @@ group 'rekab.app.background_locator'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '1.8.22'   // 🔥 NOVA verzija
     repositories {
         google()
-        mavenCentral()
+        mavenCentral()   // umjesto jcenter (deprecated)
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'   // 🔥 usklađeno s Flutter
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -17,7 +17,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -25,18 +25,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace "rekab.app.background_locator"   // ✅ dodano
-
-    compileSdkVersion 33   // možeš ostaviti 30, ali bolje 33 zbog novog AGP-a
-
-    defaultConfig {
-        minSdkVersion 21   // 16 je prestar za nove SDK-eve
-        targetSdkVersion 33
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+    namespace "rekab.app.background_locator"   // 🔥 DODANO (obavezno za AGP 7+)
+    compileSdkVersion 33   // 🔥 podignuto (bilo 30)
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 21   // 🔥 sigurnije (ranije bilo 16)
+        targetSdkVersion 33
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     lintOptions {
@@ -44,9 +43,8 @@ android {
     }
 }
 
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.google.android.gms:play-services-location:18.0.0"
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
